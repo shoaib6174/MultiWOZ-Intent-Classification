@@ -13,8 +13,8 @@ I have created 3 CSV files using the following steps:-
 2. The dataset contains the following intents:- book_hotel, book_restaurant, book_train, find_attraction, find_bus, find_hospital, find_hotel, find_police, find_restaurant, find_taxi, find_train
 3. Some entries had more than 2 intents. I removed them and got  50838 text/dialogue with intents for training and 6802 text/dialogue with intents for testing. 
 4. Then I One -Hot encoded the intents using sklearn.preprocessing.MultiLabelBinarizer 
-5. I added no_intents where text/dialogue didn’t have any intent. See the code- [Extract Intents.ipynb](https://github.com/shoaib6174/MultiWOZ-Intent-Classification/blob/main/Extract%20Intents.ipynb)
-6. I translated the texts of the test dataset to Russian for evaluation using googletrans. See the code- [translate_to_russian.ipynb](https://github.com/shoaib6174/MultiWOZ-Intent-Classification/blob/main/translate_to_russian.ipynb)
+5. I added no_intents where text/dialogue didn’t have any intent. See the notebook- [Extract Intents.ipynb](https://github.com/shoaib6174/MultiWOZ-Intent-Classification/blob/main/Extract%20Intents.ipynb)
+6. I translated the texts of the test dataset to Russian for evaluation using googletrans. See the notebook- [translate_to_russian.ipynb](https://github.com/shoaib6174/MultiWOZ-Intent-Classification/blob/main/translate_to_russian.ipynb)
 7. So, finally, I got the following 3 CSV files-
     1. Train_intent.csv
     2. Test_intents.csv
@@ -47,13 +47,13 @@ Finally, I have built a data module using **<code>LightningDataModule</code></st
   
 ## Models:
 
-I have built IntentClassifier models using Bert and LaBSE models from the transformers library which was developed by Hugging Face. I have used AdamW as an optimizer.
-See the codes-
-[BERT on MultiWOZ.ipynb](https://github.com/shoaib6174/MultiWOZ-Intent-Classification/blob/main/BERT%20on%20MultiWOZ.ipynb)
-[LaBSE on MultiWOZ.ipynb](https://github.com/shoaib6174/MultiWOZ-Intent-Classification/blob/main/LaBSE%20on%20MultiWOZ.ipynb)
+I have built IntentClassifier models using Bert and LaBSE models from the transformers library which was developed by Hugging Face. I have used AdamW as an optimizer.  
+
+See the notebooks-
+- [BERT on MultiWOZ.ipynb](https://github.com/shoaib6174/MultiWOZ-Intent-Classification/blob/main/BERT%20on%20MultiWOZ.ipynb)
+- [LaBSE on MultiWOZ.ipynb](https://github.com/shoaib6174/MultiWOZ-Intent-Classification/blob/main/LaBSE%20on%20MultiWOZ.ipynb)  
+
 Due to resource constraints, I had to use a smaller data set for training. 
-
-
 <table>
   <tr>
    <td>
