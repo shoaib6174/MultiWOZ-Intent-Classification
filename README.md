@@ -1,8 +1,9 @@
+# LaBSE and BERT models on the MultiWOZ
 Here I have compared the performance of LaBSE and BERT models on the MultiWOZ dataset. Then I have also translated the English text to Russian and evaluated both models on it without tuning the models onto the Russian Language. 
 
 **MultiWOZ Dataset:** Multi-Domain Wizard-of-Oz dataset (MultiWOZ) is a fully-labeled collection of human-human written conversations spanning over multiple domains and topics.
 
-**Preparing the data:**
+## Preparing the data:
 
 I have created 3 CSV files using the following steps:-
 
@@ -44,7 +45,7 @@ Then I have split the training data into train_df and val_df.
 Finally, I have built a data module using **<code>LightningDataModule</code></strong> class of PyTorch-Lightning. I used <code>AutoTokenizer</code>/<code>BertTokenizer </code>to tokenize the data.
   
   
-  ****Models:****
+## Models:
 
 I have built IntentClassifier models using Bert and LaBSE models from the transformers library which was developed by Hugging Face. I have used AdamW as an optimizer.
 
@@ -128,7 +129,7 @@ Due to resource constraints, I had to use a smaller data set for training.
 
 
   
-  **Model Comparison:**
+ ## Model Comparison:
 
 
 <table>
