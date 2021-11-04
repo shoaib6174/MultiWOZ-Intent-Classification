@@ -1,5 +1,5 @@
 # LaBSE and BERT models on the MultiWOZ
-I have compared the performance of LaBSE and BERT models on classifiying the intents of the MultiWOZ dataset by fine tuning the models using English text/dialogues. Then I have also translated the English text to Russian and evaluated both models on it without tuning the models onto the Russian Language. 
+I have compared the performance of LaBSE and BERT models on classifiying the intents of the MultiWOZ dataset by fine tuning the models using English text/dialogues. Then I have translated the English text to Russian and evaluated both models on it without tuning the models onto the Russian Language. 
 
 **MultiWOZ Dataset:** Multi-Domain Wizard-of-Oz dataset (MultiWOZ) is a fully-labeled collection of human-human written conversations spanning over multiple domains and topics.
 
@@ -9,10 +9,10 @@ I have created 3 CSV files using the following steps:-
 
 
 
-1. I have started by extracting text/dialogue and intents from JSON files of train and test folders of the MultiWOZ 2.1 dataset. I got 51244 instances for training and 6843  for testing.
+1. I have started by extracting text/dialogue and intents from JSON files of train and test folders of the MultiWOZ 2.1 dataset. I have got 51244 instances for training and 6843  for testing.
 2. The dataset contains the following intents:- book_hotel, book_restaurant, book_train, find_attraction, find_bus, find_hospital, find_hotel, find_police, find_restaurant, find_taxi, find_train
 3. Some entries have more than 2 intents. I have removed them and got  50838 text/dialogue with intents for training and 6802 text/dialogue with intents for testing. 
-4. Then I One -Hot encoded the intents using sklearn.preprocessing.MultiLabelBinarizer 
+4. Then I One-Hot encoded the intents using sklearn.preprocessing.MultiLabelBinarizer 
 5. I have added no_intents where text/dialogue didn’t have any intent. See the notebook- [Extract Intents.ipynb](https://github.com/shoaib6174/MultiWOZ-Intent-Classification/blob/main/Extract%20Intents.ipynb)
 6. I have translated the texts of the test dataset to Russian for evaluation using googletrans. See the notebook- [Translate to Russian.ipynb](https://github.com/shoaib6174/MultiWOZ-Intent-Classification/blob/main/Translate%20to%20Russian.ipynb)
 7. So, finally, I have got the following 3 CSV files-
@@ -42,7 +42,7 @@ The intents distribution for the LaBSEMode-
 
 Then I have split the training data into train_df and val_df.
 
-Finally, I have built a data module using **<code>LightningDataModule</code></strong> class of PyTorch-Lightning. I used <code>AutoTokenizer</code>/<code>BertTokenizer </code>to tokenize the data.
+Finally, I have built a data module using **<code>LightningDataModule</code></strong> class of PyTorch-Lightning. I have used <code>AutoTokenizer</code>/<code>BertTokenizer </code>to tokenize the data.
   
   
 ## Models:
