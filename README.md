@@ -43,7 +43,7 @@ Then I have split the training data into train_df and val_df.
 
 Finally, I have built a data module using **<code>LightningDataModule</code></strong> class of PyTorch-Lightning. I used <code>AutoTokenizer</code>/<code>BertTokenizer </code>to tokenize the data.
 
-**Models: **
+ ****Models:****
 
 I have built IntentClassifier models using Bert and LaBSE models from the transformers library which was developed by Hugging Face. I have used AdamW as an optimizer.
 
@@ -126,7 +126,7 @@ Due to resource constraints, I had to use a smaller data set for training.
 </table>
 
 
-**Model Evaluation:**
+**Model Comparison:**
 
 
 <table>
