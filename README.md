@@ -1,8 +1,7 @@
-"# MultiWOZ-Intent-Classification" 
 <!-----
 NEW: Check the "Suppress top comment" option to remove this info from the output.
 
-Conversion time: 2.8 seconds.
+Conversion time: 1.514 seconds.
 
 
 Using this Markdown file:
@@ -15,7 +14,7 @@ Using this Markdown file:
 Conversion notes:
 
 * Docs to Markdown version 1.0β31
-* Thu Nov 04 2021 02:05:47 GMT-0700 (PDT)
+* Thu Nov 04 2021 02:46:18 GMT-0700 (PDT)
 * Source doc: MultiWOZ
 * This is a partial selection. Check to make sure intra-doc links work.
 * Tables are currently converted to HTML tables.
@@ -24,22 +23,23 @@ Conversion notes:
 ----->
 
 
-<p style="color: red; font-weight: bold">>>>>>  gd2md-html alert:  ERRORs: 0; WARNINGs: 0; ALERTS: 6.</p>
+<p style="color: red; font-weight: bold">>>>>>  gd2md-html alert:  ERRORs: 0; WARNINGs: 0; ALERTS: 3.</p>
 <ul style="color: red; font-weight: bold"><li>See top comment block for details on ERRORs and WARNINGs. <li>In the converted Markdown or HTML, search for inline alerts that start with >>>>>  gd2md-html alert:  for specific instances that need correction.</ul>
 
 <p style="color: red; font-weight: bold">Links to alert messages:</p><a href="#gdcalert1">alert1</a>
 <a href="#gdcalert2">alert2</a>
 <a href="#gdcalert3">alert3</a>
-<a href="#gdcalert4">alert4</a>
-<a href="#gdcalert5">alert5</a>
-<a href="#gdcalert6">alert6</a>
 
 <p style="color: red; font-weight: bold">>>>>> PLEASE check and correct alert issues and delete this message and the inline alerts.<hr></p>
 
 
-Data:
+Here I have compared the performance of LaBSE and BERT models on the MultiWOZ dataset. Then I have also translated the English text to Russian and evaluated both models on it without tuning the models onto the Russian Language. 
 
-Creating CSV files. 
+**MultiWOZ Dataset:** Multi-Domain Wizard-of-Oz dataset (MultiWOZ) is a fully-labeled collection of human-human written conversations spanning over multiple domains and topics.
+
+**Preparing the data:**
+
+I have created 3 CSV files using the following steps:-
 
 
 
@@ -50,9 +50,11 @@ Creating CSV files.
 5. I added no_intents where text/dialogue didn’t have any intent
 6. I translated the texts of the test dataset to Russian for evaluation using googletrans
 7. So, finally, I got the following 3 CSV files-
+    1. Train_intent.csv
+    2. Test_intents.csv
+    3. Russian_intents_test.csv
 
-    train_intent.csv
-
+The intents distribution in the training dataset-
 
 
 
@@ -62,7 +64,9 @@ Creating CSV files.
 ![alt_text](images/image1.png "image_tooltip")
 
 
-test_intents.csv
+To get a balanced dataset, I have made a subset of the training data by sampling intents each for all the single entries using the Sampling with replacement method and then combined it with all the multi-intent dialogues. For the Bert model, I have sampled 2000 intents for each of the single intent entries but for LaBSE, due to resources constraint I had to sample 1000 intents. 
+
+The intents distribution for the Bert Model-
 
 
 
@@ -72,7 +76,7 @@ test_intents.csv
 ![alt_text](images/image2.png "image_tooltip")
 
 
-Russian_intents_test.csv
+The intents distribution for the LaBSEMode-
 
 
 
@@ -82,60 +86,28 @@ Russian_intents_test.csv
 ![alt_text](images/image3.png "image_tooltip")
 
 
- 
+Then I have split the training data into train_df and val_df.
 
-The intents distribution in the training dataset is like following-
+Finally, I have built a data module using **<code>LightningDataModule</code></strong> class of PyTorch-Lightning. I used <code>AutoTokenizer</code>/<code>BertTokenizer </code>to tokenize the data.
 
+**Models: **
 
+I have built IntentClassifier models using Bert and LaBSE models from the transformers library which was developed by Hugging Face. I have used AdamW as an optimizer.
 
-<p id="gdcalert4" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image4.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert5">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image4.png "image_tooltip")
-
-
-I made a subset of the training data by sampling intents each for all the single entries using the Sampling with replacement method and then combined it with all the multi-intent dialogues. For the Bert model, I sampled 2000 intents for each of the single intent entries but for LaBSE, due to resources constraint I had to sample 1000 intents. 
-
-The intents distribution for Bert Model:
-
-
-
-<p id="gdcalert5" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image5.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert6">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image5.png "image_tooltip")
-
-
-The intents distribution for LaBSEModel:
-
-
-
-<p id="gdcalert6" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image6.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert7">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image6.png "image_tooltip")
-
-
-I split this sample data into train and test dataframes.
-
-I built a data module using **<code>LightningDataModule</code></strong> of PyTorch-Lightning. I used <code>AutoTokenizer</code>
-
-/`BertTokenizer `to tokenize the data.
-
-Then I have built an IntentClassifier model using Bert/LaBSE. I have used AdamW as an optimizer.
+Due to resource constraints, I had to use a smaller data set for training. 
 
 
 <table>
   <tr>
    <td>
    </td>
-   <td>BERT
+   <td><strong>BERT</strong>
    </td>
-   <td>LaBSE
+   <td><strong>LaBSE</strong>
    </td>
   </tr>
   <tr>
-   <td>Model Name
+   <td><strong>Model Name</strong>
    </td>
    <td>bert-base-cased
    </td>
@@ -143,7 +115,7 @@ Then I have built an IntentClassifier model using Bert/LaBSE. I have used AdamW 
    </td>
   </tr>
   <tr>
-   <td>Size of Training Data
+   <td><strong>Size of Training Data</strong>
    </td>
    <td>27255
    </td>
@@ -151,7 +123,7 @@ Then I have built an IntentClassifier model using Bert/LaBSE. I have used AdamW 
    </td>
   </tr>
   <tr>
-   <td>Size of Validation Data
+   <td><strong>Size of Validation Data</strong>
    </td>
    <td>1435
    </td>
@@ -159,7 +131,7 @@ Then I have built an IntentClassifier model using Bert/LaBSE. I have used AdamW 
    </td>
   </tr>
   <tr>
-   <td>Number of Epochs
+   <td><strong>Number of Epochs</strong>
    </td>
    <td>3
    </td>
@@ -167,7 +139,15 @@ Then I have built an IntentClassifier model using Bert/LaBSE. I have used AdamW 
    </td>
   </tr>
   <tr>
-   <td>Batch Size
+   <td><strong>Number of Parameters</strong>
+   </td>
+   <td>108 M
+   </td>
+   <td>470 M
+   </td>
+  </tr>
+  <tr>
+   <td><strong>Batch Size</strong>
    </td>
    <td>12
    </td>
@@ -175,7 +155,7 @@ Then I have built an IntentClassifier model using Bert/LaBSE. I have used AdamW 
    </td>
   </tr>
   <tr>
-   <td>Max Token Count
+   <td><strong>Max Token Count</strong>
    </td>
    <td>128
    </td>
@@ -183,33 +163,17 @@ Then I have built an IntentClassifier model using Bert/LaBSE. I have used AdamW 
    </td>
   </tr>
   <tr>
-   <td>Threshold
+   <td><strong>Threshold</strong>
    </td>
-   <td>.5
+   <td>0.5
    </td>
-   <td>.5
-   </td>
-  </tr>
-  <tr>
-   <td>Accuracy on English Test Data
-   </td>
-   <td>96.95%
-   </td>
-   <td>95.85%
-   </td>
-  </tr>
-  <tr>
-   <td>Accuracy on Russian Test Data
-   </td>
-   <td>87.77%
-   </td>
-   <td>95.69%
+   <td>0.5
    </td>
   </tr>
 </table>
 
 
-Model Comparison for English Text
+**Model Evaluation:**
 
 
 <table>
@@ -235,6 +199,20 @@ Model Comparison for English Text
    <td>English (Original)
    </td>
    <td>Russian (Translated)
+   </td>
+  </tr>
+  <tr>
+   <td><strong>Accuracy</strong>
+   </td>
+   <td>-
+   </td>
+   <td>0.9695
+   </td>
+   <td>0.8777
+   </td>
+   <td>0.9585
+   </td>
+   <td>0.9569
    </td>
   </tr>
   <tr>
@@ -389,3 +367,7 @@ Model Comparison for English Text
   </tr>
 </table>
 
+
+Here, we can see that the BERT model has performed well on English texts but it has done really poorly on Russian Texts and the LaBSE model has done well on both English and Russian texts. BERT model has done better on English text than LaBSE because we trained LaBSE with fewer data. 
+
+It’s possible to get better results on this dataset than this with more computation power. I also couldn’t optimize the hyperparameters due to resource constraints. 
